@@ -8,11 +8,10 @@
 import Foundation
 
 enum ExcludedFieldType: String, CaseIterable {
-    
+
     case current
     case minutely
     case hourly
     case daily
     case alerts
-    
 }

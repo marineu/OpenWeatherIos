@@ -8,20 +8,18 @@
 import Foundation
 
 public protocol MeasurableValue {
-    
+
     var value: Double { get set }
-    
+
     init()
-    
+
     init(value: Double)
-    
 }
 
 extension MeasurableValue {
-    
+
     public init(value: Double) {
         self.init()
         self.value = value
     }
-    
 }

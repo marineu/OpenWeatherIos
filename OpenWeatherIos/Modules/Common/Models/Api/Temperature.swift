@@ -8,11 +8,10 @@
 import Foundation
 
 public struct Temperature: MeasurableValue {
-    
+
     public var value: Double = 0.0
-    
+
     public init() {}
-    
+
     static let zero = Temperature()
-    
 }

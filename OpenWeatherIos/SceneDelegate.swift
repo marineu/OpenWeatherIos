@@ -11,25 +11,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options
-                connectionOptions: UIScene.ConnectionOptions)
-    {
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
         guard let scene = (scene as? UIWindowScene) else { return }
-        
+
         let window = UIWindow(windowScene: scene)
         let tabBarController = UITabBarController()
-        
+
         let currentWeatherController = CurrentWeatherController()
         currentWeatherController
-            .tabBarItem = UITabBarItem(title: "Weather", image: nil,
-                                       selectedImage: nil)
-       
+            .tabBarItem = UITabBarItem(
+                title: "Weather",
+                image: nil,
+                selectedImage: nil
+            )
+
         tabBarController.viewControllers = [currentWeatherController]
-       
+
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
-        
+
         self.window = window
     }
 
@@ -60,7 +64,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
-

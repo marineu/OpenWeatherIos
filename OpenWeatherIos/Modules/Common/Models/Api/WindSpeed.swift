@@ -8,9 +8,8 @@
 import Foundation
 
 public struct WindSpeed: MeasurableValue {
-    
+
     public var value: Double = 0.0
-    
+
     public init() {}
-    
 }
