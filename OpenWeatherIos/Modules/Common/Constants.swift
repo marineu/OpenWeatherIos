@@ -9,6 +9,9 @@ import Foundation
 
 class Constants {
     
-    static var apiKey = "7140d6d1b230840f1dc272efb0001e86"
+    static let apiKey = "7140d6d1b230840f1dc272efb0001e86"
+    
+    static let oneCallBaseUrl = "https://api.openweathermap.org/data/2.5/onecall"
+    static let countryListUtl = "http://bulk.openweathermap.org/sample/city.list.min.json.gz"
     
 }
