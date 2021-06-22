@@ -210,6 +210,25 @@
 			path = OpenWeatherIosUITests;
 			sourceTree = "<group>";
 		};
+		034B615A2682899500A2E343 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				03D05263264200F3007EED7C /* OneCallResponse.swift */,
+				033A0D1C2643FEB200759BC2 /* WeatherConvertible.swift */,
+				03F3C7A4266D60D60093867A /* WeatherAlert.swift */,
+				03D052652642043F007EED7C /* CurrentWeather.swift */,
+				03520391264358A80066C796 /* HourlyForecast.swift */,
+				0352038F264356C30066C796 /* MinutelyForecast.swift */,
+				03180704266D518B00A5AEAF /* MeasurableValue.swift */,
+				03D052672642070B007EED7C /* Temperature.swift */,
+				0352038B26434C2B0066C796 /* Pressure.swift */,
+				0352038D26434F9F0066C796 /* WindSpeed.swift */,
+				033A0D1E264405BD00759BC2 /* WeatherModels.swift */,
+				034FA6D126448F9000EC6C19 /* DailyForecast.swift */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
 		03939E64268201BF00F67C2F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,18 +257,7 @@
 		03D052622641FFA0007EED7C /* Api */ = {
 			isa = PBXGroup;
 			children = (
-				03D05263264200F3007EED7C /* OneCallResponse.swift */,
-				033A0D1C2643FEB200759BC2 /* WeatherConvertible.swift */,
-				03F3C7A4266D60D60093867A /* WeatherAlert.swift */,
-				03D052652642043F007EED7C /* CurrentWeather.swift */,
-				03520391264358A80066C796 /* HourlyForecast.swift */,
-				0352038F264356C30066C796 /* MinutelyForecast.swift */,
-				03180704266D518B00A5AEAF /* MeasurableValue.swift */,
-				03D052672642070B007EED7C /* Temperature.swift */,
-				0352038B26434C2B0066C796 /* Pressure.swift */,
-				0352038D26434F9F0066C796 /* WindSpeed.swift */,
-				033A0D1E264405BD00759BC2 /* WeatherModels.swift */,
-				034FA6D126448F9000EC6C19 /* DailyForecast.swift */,
+				034B615A2682899500A2E343 /* Weather */,
 			);
 			path = Api;
 			sourceTree = "<group>";

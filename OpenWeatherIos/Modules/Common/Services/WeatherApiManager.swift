@@ -36,7 +36,24 @@ class WeatherApiManager: NSObject {
         AF.request(
             Constants.oneCallBaseUrl,
             method: .get,
-            parameters: parameters)
-            .responseDecodable(of: OneCallResponse.self, completionHandler: completionHandler)
+            parameters: parameters
+        )
+        .validate(statusCode: 200..<309)
+        .responseDecodable(of: OneCallResponse.self, completionHandler: completionHandler)
+    }
+
+    public func getAllCountries() {
+        let completionHandler: (DataResponse<Data, AFError>) -> Void = { response in
+            if let data = response.value {
+                
+            }
+        }
+
+        AF.request(
+            Constants.countryListUtl,
+            method: .get
+        )
+        .validate(statusCode: 200..<309)
+        .responseData(completionHandler: completionHandler)
     }
 }
