@@ -18,8 +18,5 @@ class CurrentWeatherController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        WeatherApiManager.shared.oneCallCurrentWeather(latitude: 46.35, longitude: 9.18)
-        WeatherApiManager.shared.getAllCountries()
     }
 }

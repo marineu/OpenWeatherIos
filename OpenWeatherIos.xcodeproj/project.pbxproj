@@ -30,6 +30,8 @@
 		03D05264264200F3007EED7C /* OneCallResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D05263264200F3007EED7C /* OneCallResponse.swift */; };
 		03D052662642043F007EED7C /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D052652642043F007EED7C /* CurrentWeather.swift */; };
 		03D052682642070B007EED7C /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D052672642070B007EED7C /* Temperature.swift */; };
+		03EAE1DB268C8FD500CF077E /* GzipDataSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EAE1DA268C8FD500CF077E /* GzipDataSerializer.swift */; };
+		03EAE1DD268C90A800CF077E /* DataRequest+Gzip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EAE1DC268C90A800CF077E /* DataRequest+Gzip.swift */; };
 		03F3C7A5266D60D60093867A /* WeatherAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3C7A4266D60D60093867A /* WeatherAlert.swift */; };
 		39004E4DB15105097668228E /* Pods_OpenWeatherIos_OpenWeatherIosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD0963E73F999481A8C0DB0D /* Pods_OpenWeatherIos_OpenWeatherIosUITests.framework */; };
 		9751F7777824A17F5D0F32D7 /* Pods_OpenWeatherIos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D8F6D0170A6F3E973010B21 /* Pods_OpenWeatherIos.framework */; };
@@ -83,6 +85,8 @@
 		03D05263264200F3007EED7C /* OneCallResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCallResponse.swift; sourceTree = "<group>"; };
 		03D052652642043F007EED7C /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		03D052672642070B007EED7C /* Temperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
+		03EAE1DA268C8FD500CF077E /* GzipDataSerializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GzipDataSerializer.swift; sourceTree = "<group>"; };
+		03EAE1DC268C90A800CF077E /* DataRequest+Gzip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataRequest+Gzip.swift"; sourceTree = "<group>"; };
 		03F3C7A4266D60D60093867A /* WeatherAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAlert.swift; sourceTree = "<group>"; };
 		0D5E9298DC55FC210BAD7638 /* Pods-OpenWeatherIosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenWeatherIosTests.release.xcconfig"; path = "Target Support Files/Pods-OpenWeatherIosTests/Pods-OpenWeatherIosTests.release.xcconfig"; sourceTree = "<group>"; };
 		0D7D98F39B3990F5449B8C09 /* Pods-OpenWeatherIos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenWeatherIos.debug.xcconfig"; path = "Target Support Files/Pods-OpenWeatherIos/Pods-OpenWeatherIos.debug.xcconfig"; sourceTree = "<group>"; };
@@ -235,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				03939E65268201E000F67C2F /* Data+Gzip.swift */,
+				03EAE1DC268C90A800CF077E /* DataRequest+Gzip.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				03D0525B2641EFE5007EED7C /* WeatherApiManager.swift */,
+				03EAE1DA268C8FD500CF077E /* GzipDataSerializer.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -550,6 +556,7 @@
 				03520390264356C30066C796 /* MinutelyForecast.swift in Sources */,
 				033A0D1F264405BD00759BC2 /* WeatherModels.swift in Sources */,
 				034B615E26828ACC00A2E343 /* City.swift in Sources */,
+				03EAE1DD268C90A800CF077E /* DataRequest+Gzip.swift in Sources */,
 				03D052682642070B007EED7C /* Temperature.swift in Sources */,
 				03D052662642043F007EED7C /* CurrentWeather.swift in Sources */,
 				030193AB263F45F1005461C5 /* CurrentWeatherController.swift in Sources */,
@@ -560,6 +567,7 @@
 				030DA3AC263610D10063BAD1 /* SceneDelegate.swift in Sources */,
 				03180705266D518B00A5AEAF /* MeasurableValue.swift in Sources */,
 				030193B3263F51D2005461C5 /* Constants.swift in Sources */,
+				03EAE1DB268C8FD500CF077E /* GzipDataSerializer.swift in Sources */,
 				03F3C7A5266D60D60093867A /* WeatherAlert.swift in Sources */,
 				033A0D1D2643FEB200759BC2 /* WeatherConvertible.swift in Sources */,
 				0352038E26434F9F0066C796 /* WindSpeed.swift in Sources */,
