@@ -72,25 +72,15 @@ public struct HourlyForecast: Codable, WeatherConvertible, WeatherTemperature {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
-        let temperatureValue = try values.decode(Double.self, forKey: .temperature)
-        temperature = Temperature(value: temperatureValue)
-
-        let feelsLikeValue = try values.decode(Double.self, forKey: .feelsLike)
-        feelsLike = Temperature(value: feelsLikeValue)
+        temperature = try values.decode(Temperature.self, forKey: .temperature)
+        feelsLike = try values.decode(Temperature.self, forKey: .feelsLike)
 
         pop = try values.decode(Double.self, forKey: .pop)
 
-        let pressureValue = try values.decode(Double.self, forKey: .pressure)
-        pressure          = Pressure(value: pressureValue)
-
-        let dewPointValue = try values.decode(Double.self, forKey: .dewPoint)
-        dewPoint          = Temperature(value: dewPointValue)
-
-        let windSpeedValue = try values.decode(Double.self, forKey: .windSpeed)
-        windSpeed          = WindSpeed(value: windSpeedValue)
-
-        let windGustValue = try values.decode(Double.self, forKey: .windGust)
-        windGust          = WindSpeed(value: windGustValue)
+        pressure  = try values.decode(Pressure.self, forKey: .pressure)
+        dewPoint  = try values.decode(Temperature.self, forKey: .dewPoint)
+        windSpeed = try values.decode(WindSpeed.self, forKey: .windSpeed)
+        windGust  = try values.decode(WindSpeed.self, forKey: .windGust)
 
         cdt        = try values.decode(TimeInterval.self, forKey: .cdt)
         humidity   = try values.decode(Int8.self, forKey: .humidity)
@@ -116,20 +106,20 @@ public struct HourlyForecast: Codable, WeatherConvertible, WeatherTemperature {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encode(temperature.value, forKey: .temperature)
-        try container.encode(feelsLike.value, forKey: .feelsLike)
+        try container.encode(temperature, forKey: .temperature)
+        try container.encode(feelsLike, forKey: .feelsLike)
 
         try container.encode(pop, forKey: .pop)
 
         try container.encode(cdt, forKey: .cdt)
-        try container.encode(pressure.value, forKey: .pressure)
+        try container.encode(pressure, forKey: .pressure)
         try container.encode(humidity, forKey: .humidity)
-        try container.encode(dewPoint.value, forKey: .dewPoint)
+        try container.encode(dewPoint, forKey: .dewPoint)
         try container.encode(clouds, forKey: .clouds)
         try container.encode(uvi, forKey: .uvi)
         try container.encode(visibility, forKey: .visibility)
-        try container.encode(windSpeed.value, forKey: .windSpeed)
-        try container.encode(windGust.value, forKey: .windGust)
+        try container.encode(windSpeed, forKey: .windSpeed)
+        try container.encode(windGust, forKey: .windGust)
         try container.encode(windDeg, forKey: .windDeg)
         try container.encode(weather, forKey: .weather)
 
