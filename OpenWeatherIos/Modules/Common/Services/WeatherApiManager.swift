@@ -50,9 +50,9 @@ class WeatherApiManager: NSObject {
         .responseDecodable(of: OneCallResponse.self, completionHandler: completionHandler)
     }
 
-    public func getAllCountries(completion: ((Cities, Error?) -> Void)?) {
+    public func getAllCities(completion: ((Cities, Error?) -> Void)?) {
         AF.request(
-            Constants.countryListUtl,
+            Constants.citiesListUtl,
             method: .get
         )
         .validate(statusCode: 200..<309)
