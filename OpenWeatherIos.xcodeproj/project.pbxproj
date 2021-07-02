@@ -134,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				030193B2263F51D2005461C5 /* Constants.swift */,
+				03648817268F52A400D5E1B4 /* Utils */,
 				03939E64268201BF00F67C2F /* Extensions */,
 				03D0525D2641F67E007EED7C /* Models */,
 				03D0525A2641ECD0007EED7C /* Services */,
@@ -226,6 +227,14 @@
 			path = Weather;
 			sourceTree = "<group>";
 		};
+		03648817268F52A400D5E1B4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				03EAE1DA268C8FD500CF077E /* GzipDataSerializer.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		03939E64268201BF00F67C2F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,7 +248,6 @@
 			isa = PBXGroup;
 			children = (
 				03D0525B2641EFE5007EED7C /* WeatherApiManager.swift */,
-				03EAE1DA268C8FD500CF077E /* GzipDataSerializer.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
