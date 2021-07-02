@@ -18,15 +18,27 @@ class OpenWeatherIosTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testGetAllCities() throws {
+        let expectation = XCTestExpectation(description: "Download the list of cities")
+
+        WeatherApiManager.shared.getAllCities { cities, _ in
+            XCTAssertFalse(cities.isEmpty, "No cities loaded.")
+
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testOneCallCurrentWeather() throws {
+        let expectation = XCTestExpectation(description: "Load city's one call current weather")
+
+        WeatherApiManager.shared.oneCallCurrentWeather(latitude: 46.35, longitude: 9.18) { oneCallResponse, _ in
+            XCTAssertNotNil(oneCallResponse, "No city's one call current weather loaded.")
+
+            expectation.fulfill()
         }
+
+        wait(for: [expectation], timeout: 5.0)
     }
 }
