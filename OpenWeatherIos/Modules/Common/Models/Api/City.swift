@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias Cities = [City]
+public typealias Cities = [City]
 
 public struct City: Codable {
 

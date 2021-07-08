@@ -22,6 +22,7 @@
 		034FA6D226448F9000EC6C19 /* DailyForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034FA6D126448F9000EC6C19 /* DailyForecast.swift */; };
 		03520390264356C30066C796 /* MinutelyForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0352038F264356C30066C796 /* MinutelyForecast.swift */; };
 		03520392264358A80066C796 /* HourlyForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03520391264358A80066C796 /* HourlyForecast.swift */; };
+		03648819268F5E9800D5E1B4 /* SearchCityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03648818268F5E9800D5E1B4 /* SearchCityManager.swift */; };
 		03939E66268201E000F67C2F /* Data+Gzip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03939E65268201E000F67C2F /* Data+Gzip.swift */; };
 		03D0525C2641EFE5007EED7C /* WeatherApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D0525B2641EFE5007EED7C /* WeatherApiManager.swift */; };
 		03D0525F2641F6C3007EED7C /* ExcludedFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D0525E2641F6C3007EED7C /* ExcludedFieldType.swift */; };
@@ -29,6 +30,7 @@
 		03D052662642043F007EED7C /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D052652642043F007EED7C /* CurrentWeather.swift */; };
 		03EAE1DB268C8FD500CF077E /* GzipDataSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EAE1DA268C8FD500CF077E /* GzipDataSerializer.swift */; };
 		03EAE1DD268C90A800CF077E /* DataRequest+Gzip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EAE1DC268C90A800CF077E /* DataRequest+Gzip.swift */; };
+		03F22653268FCDBD00F094BA /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F22652268FCDBD00F094BA /* StringUtils.swift */; };
 		03F3C7A5266D60D60093867A /* WeatherAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3C7A4266D60D60093867A /* WeatherAlert.swift */; };
 		39004E4DB15105097668228E /* Pods_OpenWeatherIos_OpenWeatherIosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD0963E73F999481A8C0DB0D /* Pods_OpenWeatherIos_OpenWeatherIosUITests.framework */; };
 		9751F7777824A17F5D0F32D7 /* Pods_OpenWeatherIos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D8F6D0170A6F3E973010B21 /* Pods_OpenWeatherIos.framework */; };
@@ -74,6 +76,7 @@
 		034FA6D126448F9000EC6C19 /* DailyForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyForecast.swift; sourceTree = "<group>"; };
 		0352038F264356C30066C796 /* MinutelyForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinutelyForecast.swift; sourceTree = "<group>"; };
 		03520391264358A80066C796 /* HourlyForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecast.swift; sourceTree = "<group>"; };
+		03648818268F5E9800D5E1B4 /* SearchCityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCityManager.swift; sourceTree = "<group>"; };
 		03939E65268201E000F67C2F /* Data+Gzip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Gzip.swift"; sourceTree = "<group>"; };
 		03D0525B2641EFE5007EED7C /* WeatherApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApiManager.swift; sourceTree = "<group>"; };
 		03D0525E2641F6C3007EED7C /* ExcludedFieldType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcludedFieldType.swift; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 		03D052652642043F007EED7C /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		03EAE1DA268C8FD500CF077E /* GzipDataSerializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GzipDataSerializer.swift; sourceTree = "<group>"; };
 		03EAE1DC268C90A800CF077E /* DataRequest+Gzip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataRequest+Gzip.swift"; sourceTree = "<group>"; };
+		03F22652268FCDBD00F094BA /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		03F3C7A4266D60D60093867A /* WeatherAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAlert.swift; sourceTree = "<group>"; };
 		0D5E9298DC55FC210BAD7638 /* Pods-OpenWeatherIosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenWeatherIosTests.release.xcconfig"; path = "Target Support Files/Pods-OpenWeatherIosTests/Pods-OpenWeatherIosTests.release.xcconfig"; sourceTree = "<group>"; };
 		0D7D98F39B3990F5449B8C09 /* Pods-OpenWeatherIos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenWeatherIos.debug.xcconfig"; path = "Target Support Files/Pods-OpenWeatherIos/Pods-OpenWeatherIos.debug.xcconfig"; sourceTree = "<group>"; };
@@ -231,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				03EAE1DA268C8FD500CF077E /* GzipDataSerializer.swift */,
+				03F22652268FCDBD00F094BA /* StringUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				03D0525B2641EFE5007EED7C /* WeatherApiManager.swift */,
+				03648818268F5E9800D5E1B4 /* SearchCityManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -552,7 +558,9 @@
 				03D0525F2641F6C3007EED7C /* ExcludedFieldType.swift in Sources */,
 				03939E66268201E000F67C2F /* Data+Gzip.swift in Sources */,
 				03520390264356C30066C796 /* MinutelyForecast.swift in Sources */,
+				03648819268F5E9800D5E1B4 /* SearchCityManager.swift in Sources */,
 				033A0D1F264405BD00759BC2 /* WeatherModels.swift in Sources */,
+				03F22653268FCDBD00F094BA /* StringUtils.swift in Sources */,
 				034B615E26828ACC00A2E343 /* City.swift in Sources */,
 				03EAE1DD268C90A800CF077E /* DataRequest+Gzip.swift in Sources */,
 				03D052662642043F007EED7C /* CurrentWeather.swift in Sources */,
