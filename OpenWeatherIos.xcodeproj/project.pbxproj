@@ -23,6 +23,7 @@
 		03520390264356C30066C796 /* MinutelyForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0352038F264356C30066C796 /* MinutelyForecast.swift */; };
 		03520392264358A80066C796 /* HourlyForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03520391264358A80066C796 /* HourlyForecast.swift */; };
 		03648819268F5E9800D5E1B4 /* SearchCityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03648818268F5E9800D5E1B4 /* SearchCityManager.swift */; };
+		0369AD1126988E7F0005845B /* ValueStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0369AD1026988E7F0005845B /* ValueStoreService.swift */; };
 		03939E66268201E000F67C2F /* Data+Gzip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03939E65268201E000F67C2F /* Data+Gzip.swift */; };
 		03D0525C2641EFE5007EED7C /* WeatherApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D0525B2641EFE5007EED7C /* WeatherApiManager.swift */; };
 		03D0525F2641F6C3007EED7C /* ExcludedFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D0525E2641F6C3007EED7C /* ExcludedFieldType.swift */; };
@@ -77,6 +78,7 @@
 		0352038F264356C30066C796 /* MinutelyForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinutelyForecast.swift; sourceTree = "<group>"; };
 		03520391264358A80066C796 /* HourlyForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecast.swift; sourceTree = "<group>"; };
 		03648818268F5E9800D5E1B4 /* SearchCityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCityManager.swift; sourceTree = "<group>"; };
+		0369AD1026988E7F0005845B /* ValueStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueStoreService.swift; sourceTree = "<group>"; };
 		03939E65268201E000F67C2F /* Data+Gzip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Gzip.swift"; sourceTree = "<group>"; };
 		03D0525B2641EFE5007EED7C /* WeatherApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApiManager.swift; sourceTree = "<group>"; };
 		03D0525E2641F6C3007EED7C /* ExcludedFieldType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcludedFieldType.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 			children = (
 				03D0525B2641EFE5007EED7C /* WeatherApiManager.swift */,
 				03648818268F5E9800D5E1B4 /* SearchCityManager.swift */,
+				0369AD1026988E7F0005845B /* ValueStoreService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				03D0525F2641F6C3007EED7C /* ExcludedFieldType.swift in Sources */,
 				03939E66268201E000F67C2F /* Data+Gzip.swift in Sources */,
 				03520390264356C30066C796 /* MinutelyForecast.swift in Sources */,
+				0369AD1126988E7F0005845B /* ValueStoreService.swift in Sources */,
 				03648819268F5E9800D5E1B4 /* SearchCityManager.swift in Sources */,
 				033A0D1F264405BD00759BC2 /* WeatherModels.swift in Sources */,
 				03F22653268FCDBD00F094BA /* StringUtils.swift in Sources */,
