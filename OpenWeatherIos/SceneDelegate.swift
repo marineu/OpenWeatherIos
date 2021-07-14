@@ -19,19 +19,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: scene)
-        let tabBarController = UITabBarController()
+        //        let tabBarController = UITabBarController()
+        //
+        //        let currentWeatherController = CurrentWeatherController()
+        //        currentWeatherController
+        //            .tabBarItem = UITabBarItem(
+        //                title: "Weather",
+        //                image: nil,
+        //                selectedImage: nil
+        //            )
+        //
+        //        tabBarController.viewControllers = [currentWeatherController]
 
-        let currentWeatherController = CurrentWeatherController()
-        currentWeatherController
-            .tabBarItem = UITabBarItem(
-                title: "Weather",
-                image: nil,
-                selectedImage: nil
-            )
+        let loadingDataViewController = LoadingDataViewController()
+        loadingDataViewController.viewModel = LoadingDataViewModel()
 
-        tabBarController.viewControllers = [currentWeatherController]
-
-        window.rootViewController = tabBarController
+        window.rootViewController = loadingDataViewController
         window.makeKeyAndVisible()
 
         self.window = window
