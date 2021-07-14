@@ -7,9 +7,11 @@
 
 import UIKit
 
-class LoadingDataViewController: UIViewController, ViewModelSupporting {
+class LoadingDataViewController: UIViewController, ViewModelNavigatorSupporting {
 
     var viewModel: LoadingDataViewModel?
+
+    var navigator: LoadingDataNavigator?
 
     private var retryButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -66,8 +68,11 @@ class LoadingDataViewController: UIViewController, ViewModelSupporting {
 
         bindActivityIndicatorIsLoading()
         bindRetryButtonIsHidden()
+        didLoadDataAction()
 
-        viewModel?.loadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.viewModel?.loadData()
+        }
     }
 
     // MARK: - ui
@@ -94,6 +99,14 @@ class LoadingDataViewController: UIViewController, ViewModelSupporting {
             guard let self = self else { return }
 
             self.retryButton.isHidden = isHidden
+        }
+    }
+
+    private func didLoadDataAction() {
+        viewModel?.didLoadData = { [weak self] in
+            guard let self = self else { return }
+
+            self.navigator?.navigate(to: .startApplication)
         }
     }
 

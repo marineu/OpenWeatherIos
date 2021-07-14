@@ -10,6 +10,7 @@ import Foundation
 public class LoadingDataViewModel: BaseViewModel {
 
     private(set) var retryButtonIsHidden: Bindable<Bool> = Bindable(true)
+    public var didLoadData: (() -> Void)?
 
     public func loadData() {
         activityIndicatorIsLoading.value = true
@@ -18,6 +19,7 @@ public class LoadingDataViewModel: BaseViewModel {
 
         guard cities.isEmpty else {
             activityIndicatorIsLoading.value = false
+            self.didLoadData?()
             return
         }
 
@@ -29,6 +31,10 @@ public class LoadingDataViewModel: BaseViewModel {
                     self.activityIndicatorIsLoading.value = false
                     self.errorMessage.value = error != nil ? error?.localizedDescription : nil
                     self.retryButtonIsHidden.value = error == nil
+
+                    if error == nil {
+                        self.didLoadData?()
+                    }
                 }
             }
 
