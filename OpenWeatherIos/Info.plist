@@ -69,5 +69,7 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Used to show forecast for location</string>
 </dict>
 </plist>
