@@ -73,3 +73,14 @@ extension UIColor {
         return UIColor(named: "snowy-icy-day-end") ?? .clear
     }
 }
+
+extension UIColor {
+
+    static var dodgerBlue: UIColor {
+        return UIColor(named: "dodger-blue") ?? .clear
+    }
+
+    static var doveGray: UIColor {
+        UIColor(named: "dove-gray") ?? .clear
+    }
+}

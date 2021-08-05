@@ -30,9 +30,12 @@ class LoadingDataNavigator: Navigator {
             currentWeatherController
                 .tabBarItem = UITabBarItem(
                     title: "Weather",
-                    image: nil,
-                    selectedImage: nil
+                    image: UIImage(named: "weather-tab-normal"),
+                    selectedImage: UIImage(named: "weather-tab-selected")
                 )
+
+            UITabBar.appearance().unselectedItemTintColor = .doveGray
+            UITabBar.appearance().tintColor = .dodgerBlue
 
             tabBarController.viewControllers = [currentWeatherController]
 
