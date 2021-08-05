@@ -33,6 +33,8 @@
 		0360EC7B269C616B004ED659 /* CityWeatherForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0360EC7A269C616B004ED659 /* CityWeatherForecast.swift */; };
 		03648819268F5E9800D5E1B4 /* SearchCityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03648818268F5E9800D5E1B4 /* SearchCityManager.swift */; };
 		0369AD1126988E7F0005845B /* ValueStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0369AD1026988E7F0005845B /* ValueStoreService.swift */; };
+		03756B7126BBF65B00D2B3CE /* SkyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03756B7026BBF65B00D2B3CE /* SkyType.swift */; };
+		03756B7426BBF78700D2B3CE /* SkyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03756B7326BBF78700D2B3CE /* SkyView.swift */; };
 		0378FD0F269902F70027CEF7 /* UnitTupes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0378FD0E269902F70027CEF7 /* UnitTupes.swift */; };
 		0378FD112699072C0027CEF7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0378FD102699072C0027CEF7 /* Settings.swift */; };
 		0378FD132699095C0027CEF7 /* AppDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0378FD122699095C0027CEF7 /* AppDataManager.swift */; };
@@ -104,6 +106,8 @@
 		0360EC7A269C616B004ED659 /* CityWeatherForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherForecast.swift; sourceTree = "<group>"; };
 		03648818268F5E9800D5E1B4 /* SearchCityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCityManager.swift; sourceTree = "<group>"; };
 		0369AD1026988E7F0005845B /* ValueStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueStoreService.swift; sourceTree = "<group>"; };
+		03756B7026BBF65B00D2B3CE /* SkyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyType.swift; sourceTree = "<group>"; };
+		03756B7326BBF78700D2B3CE /* SkyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyView.swift; sourceTree = "<group>"; };
 		0378FD0E269902F70027CEF7 /* UnitTupes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTupes.swift; sourceTree = "<group>"; };
 		0378FD102699072C0027CEF7 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		0378FD122699095C0027CEF7 /* AppDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataManager.swift; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				030193B2263F51D2005461C5 /* Constants.swift */,
+				03756B7226BBF75800D2B3CE /* Views */,
 				03DEA212269EF5D200AB1A4C /* Navigation */,
 				0341F93F269DADD100591D8B /* Protocols */,
 				0341F939269DA80500591D8B /* ViewModels */,
@@ -308,6 +313,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		03756B7226BBF75800D2B3CE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				03756B7326BBF78700D2B3CE /* SkyView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		03939E64268201BF00F67C2F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,6 +351,7 @@
 				0378FD0E269902F70027CEF7 /* UnitTupes.swift */,
 				0378FD102699072C0027CEF7 /* Settings.swift */,
 				0360EC7A269C616B004ED659 /* CityWeatherForecast.swift */,
+				03756B7026BBF65B00D2B3CE /* SkyType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -647,6 +661,8 @@
 				033A0D1F264405BD00759BC2 /* WeatherModels.swift in Sources */,
 				0345D1C126A5B9ED00425291 /* UIColor+Sky.swift in Sources */,
 				032BCDAF26A0486F00DE3F62 /* LocationManager.swift in Sources */,
+				03756B7426BBF78700D2B3CE /* SkyView.swift in Sources */,
+				03756B7126BBF65B00D2B3CE /* SkyType.swift in Sources */,
 				0341F941269DB37800591D8B /* ViewModelSupporting.swift in Sources */,
 				03F22653268FCDBD00F094BA /* StringUtils.swift in Sources */,
 				034B615E26828ACC00A2E343 /* City.swift in Sources */,

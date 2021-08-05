@@ -19,7 +19,7 @@ public class WeatherUtils {
         return Date().timeIntervalSince1970 > sunset
     }
 
-    public func weatherIcon(by id: Int) -> String {
+    public func weatherIcon(by id: WeatherId) -> String {
         let imageNames: [Int: String] = [
             511: "rain-snow",
             800: isNight ? "clear-night" : "clear-day",
@@ -30,20 +30,33 @@ public class WeatherUtils {
         ]
 
         switch id {
-        case 200..<300:
+        case 200..<233:
             return "thunderstorms"
-        case 300..<400:
+        case 300..<322, 520..<532:
             return "rain"
         case 500..<505:
             return "light-rain"
-        case 520..<600:
-            return "rain"
-        case 600..<700:
+        case 600..<623:
             return "snow"
-        case 700..<800:
+        case 701..<782:
             return "mist"
         default:
             return imageNames[id] ?? ""
+        }
+    }
+
+    public func skyType(by id: WeatherId) -> SkyType {
+        switch id {
+        case 200..<322, 500..<505, 520..<532:
+            return isNight ? .rainyNight : .rainyDay
+        case 511, 600..<623:
+            return isNight ? .snowyIcyNight : .snowyIcyDay
+        case 800:
+            return isNight ? .clearNight : .sunnyDay
+        case 701..<800, 801..<805:
+            return isNight ? .cloudyFoggyNight : .cloudyFoggyDay
+        default:
+            return .sunnyDay
         }
     }
 }

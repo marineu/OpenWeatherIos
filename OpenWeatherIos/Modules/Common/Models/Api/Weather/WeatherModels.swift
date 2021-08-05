@@ -7,12 +7,14 @@
 
 import Foundation
 
+public typealias WeatherId = Int
+
 // MARK: - WeatherDetails
 
 public struct WeatherDetails: Codable {
 
     /// Weather condition id
-    var id: Int
+    var id: WeatherId
 
     /// Group of weather parameters (Rain, Snow, Extreme etc.)
     var main: String
