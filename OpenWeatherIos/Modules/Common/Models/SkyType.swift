@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum SkyType {
+public enum SkyType: Int {
 
     case clearNight
     case cloudyFoggyNight
