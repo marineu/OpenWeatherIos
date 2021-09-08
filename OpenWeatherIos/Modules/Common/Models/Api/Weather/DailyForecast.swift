@@ -170,10 +170,10 @@ extension DailyForecast {
         var night: Temperature
 
         /// Min daily temperature.
-        var min: Temperature
+        var min: Temperature?
 
         /// Max daily temperature.
-        var max: Temperature
+        var max: Temperature?
 
         init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -183,8 +183,8 @@ extension DailyForecast {
             evening = try values.decode(Temperature.self, forKey: .evening)
             night   = try values.decode(Temperature.self, forKey: .night)
 
-            min = try values.decodeIfPresent(Temperature.self, forKey: .min) ?? 0.0
-            max = try values.decodeIfPresent(Temperature.self, forKey: .max) ?? 0.0
+            min = try values.decodeIfPresent(Temperature.self, forKey: .min)
+            max = try values.decodeIfPresent(Temperature.self, forKey: .max)
         }
 
         func encode(to encoder: Encoder) throws {
@@ -194,8 +194,8 @@ extension DailyForecast {
             try container.encode(day, forKey: .day)
             try container.encode(evening, forKey: .evening)
             try container.encode(night, forKey: .night)
-            try container.encode(min, forKey: .night)
-            try container.encode(max, forKey: .night)
+            try container.encodeIfPresent(min, forKey: .min)
+            try container.encodeIfPresent(max, forKey: .max)
         }
     }
 }

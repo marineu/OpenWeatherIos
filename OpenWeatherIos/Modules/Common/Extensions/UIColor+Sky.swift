@@ -84,3 +84,18 @@ extension UIColor {
         UIColor(named: "dove-gray") ?? .clear
     }
 }
+
+extension UIColor {
+
+    static var night: UIColor {
+        return UIColor(named: "night") ?? .clear
+    }
+
+    static var daylight: UIColor {
+        UIColor(named: "daylight") ?? .clear
+    }
+
+    static var sun: UIColor {
+        UIColor(named: "sun") ?? .clear
+    }
+}

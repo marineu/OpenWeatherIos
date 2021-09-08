@@ -7,16 +7,163 @@
 
 import UIKit
 
-class CurrentWeatherController: UIViewController {
+class CurrentWeatherController: UIViewController, ViewModelSupporting {
 
-    override func loadView() {
-        let view = UIView()
-        view.backgroundColor = .systemBackground
+    var viewModel: CurrentWeatherViewModel?
 
-        self.view = view
-    }
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        tableView.allowsSelection = false
+        tableView.contentInsetAdjustmentBehavior = .never
+
+        tableView.dataSource = self
+
+        tableView.register(CurrentWeatherCell.self, forCellReuseIdentifier: CellType.current.rawValue)
+        tableView.register(ShortDailyCell.self, forCellReuseIdentifier: CellType.daily.rawValue)
+        tableView.register(HourlyForecastCell.self, forCellReuseIdentifier: CellType.hourly.rawValue)
+        tableView.register(
+            AdditionalWeatherCell.self,
+            forCellReuseIdentifier: CellType.currentAdditional.rawValue
+        )
+        tableView.register(SunsetCell.self, forCellReuseIdentifier: CellType.sunset.rawValue)
+
+        tableView.addSubview(refreshControl)
+
+        return tableView
+    }()
+
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        refreshControl.addTarget(self, action: #selector(refreshControlHandler), for: .valueChanged)
+
+        return refreshControl
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setupTableView()
+
+        bindReloadTableView()
+
+        DispatchQueue.main.async {
+            self.viewModel?.loadData()
+        }
+    }
+
+    // setup UI
+
+    private func setupTableView() {
+        view.addSubview(tableView)
+
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+
+        view.bottomAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor).isActive = true
+    }
+
+    // MARK: - bind UI
+
+    private func bindReloadTableView() {
+        viewModel?.reloadTableView.bind { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+
+            if self.refreshControl.isRefreshing {
+                self.refreshControl.endRefreshing()
+            }
+
+            (self.weatherPageViewController as? MainWeatherPageViewController)?
+                .updateBackgroundView(with: self)
+            self.tableView.reloadData()
+        }
+    }
+
+    // MARK: - actions
+
+    @objc private func refreshControlHandler() {
+        viewModel?.loadData()
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension CurrentWeatherController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel?.cellTypes.count ?? 0
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let viewModel = viewModel else {
+            return UITableViewCell()
+        }
+        let cellType = viewModel.cellTypes[indexPath.row]
+
+        switch cellType {
+        case .current:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: CellType.current.rawValue,
+                for: indexPath
+            ) as? CurrentWeatherCell
+
+            let cityWeatherForecast = viewModel.cityWeatherForecast
+
+            cell?.currentWeather = cityWeatherForecast.oneCallResponse.current
+            cell?.settings = viewModel.appDataManager.settings
+
+            return cell ?? UITableViewCell()
+        case .daily:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: CellType.daily.rawValue,
+                for: indexPath) as? ShortDailyCell
+
+            let cityWeatherForecast = viewModel.cityWeatherForecast
+            let daily = cityWeatherForecast.oneCallResponse.daily ?? []
+
+            cell?.dailyForecasts = Array(daily[0..<3])
+            cell?.settings = viewModel.appDataManager.settings
+            cell?.dailyForecastsCount = daily.count
+            cell?.timeZone = viewModel.timeZone
+
+            return cell ?? UITableViewCell()
+        case .hourly:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: CellType.hourly.rawValue,
+                for: indexPath) as? HourlyForecastCell
+
+            cell?.hourlyForecasts = viewModel.hourlyForecasts
+            cell?.timeZone = viewModel.timeZone
+
+            return cell ?? UITableViewCell()
+        case .currentAdditional:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: CellType.currentAdditional.rawValue,
+                for: indexPath) as? AdditionalWeatherCell
+
+            let cityWeatherForecast = viewModel.cityWeatherForecast
+
+            cell?.currentWeather = cityWeatherForecast.oneCallResponse.current
+            cell?.settings = viewModel.appDataManager.settings
+
+            return cell ?? UITableViewCell()
+        case .sunset:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: CellType.sunset.rawValue,
+                for: indexPath) as? SunsetCell
+
+            let cityWeatherForecast = viewModel.cityWeatherForecast
+
+            cell?.currentWeather = cityWeatherForecast.oneCallResponse.current
+            cell?.timeZone = viewModel.timeZone
+
+            return cell ?? UITableViewCell()
+        }
     }
 }

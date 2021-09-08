@@ -9,7 +9,6 @@ import Foundation
 
 public enum TemperatureUnit: Int, Codable {
 
-    case kelvin
     case celsius
     case fahrenheit
 }
@@ -28,4 +27,12 @@ public enum PressureUnit: Int, Codable {
     case millibars
     case millimetersOfMercury
     case inchesOfMercury
+}
+
+public enum LengthUnit: Int, Codable {
+
+    case meters
+    case kilometers
+    case yards
+    case miles
 }

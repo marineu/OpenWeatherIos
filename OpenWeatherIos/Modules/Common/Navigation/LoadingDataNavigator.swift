@@ -26,7 +26,9 @@ class LoadingDataNavigator: Navigator {
         case .startApplication:
             let tabBarController = UITabBarController()
 
-            let weatherPageViewController = WeatherPageViewController()
+            let weatherPageViewController = MainWeatherPageViewController()
+            weatherPageViewController.viewModel = MainWeatherPageViewModel(
+                cityWeatherStoreService: AppDataManager.shared.cityWeatherStoreService)
             weatherPageViewController
                 .tabBarItem = UITabBarItem(
                     title: "Weather",
@@ -37,7 +39,9 @@ class LoadingDataNavigator: Navigator {
             UITabBar.appearance().unselectedItemTintColor = .doveGray
             UITabBar.appearance().tintColor = .dodgerBlue
 
-            tabBarController.viewControllers = [weatherPageViewController]
+            tabBarController.viewControllers = [
+                MainNavigationController(rootViewController: weatherPageViewController)
+            ]
 
             return tabBarController
         }

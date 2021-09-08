@@ -12,4 +12,12 @@ public struct Settings: Codable {
     var temperatureUnit: TemperatureUnit
     var speedUnit: SpeedUnit
     var pressureUnit: PressureUnit
+    var lengthUnit: LengthUnit
+
+    init() {
+        temperatureUnit = .celsius
+        speedUnit       = .kilometersPerHour
+        pressureUnit    = .hectopascals
+        lengthUnit      = .meters
+    }
 }

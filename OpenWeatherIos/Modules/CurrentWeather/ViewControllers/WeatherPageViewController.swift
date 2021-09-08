@@ -9,11 +9,31 @@ import UIKit
 
 class WeatherPageViewController: UIViewController {
 
-    private(set) var selectedIndex: Int = 0
+    var selectedIndex: Int {
+        get {
+            guard let firstViewController = pageViewController.viewControllers?.first else {
+                return NSNotFound
+            }
 
-    private var allViewControllers: [UIViewController] = []
+            return allViewControllers.firstIndex(of: firstViewController) ?? NSNotFound
+        }
 
-    private var allSkyTypes: [SkyType] = []
+        set {
+            let selectedViewController = allViewControllers[newValue]
+            pageViewController.setViewControllers(
+                [selectedViewController],
+                direction: .forward,
+                animated: false
+            )
+            pageViewController(
+                pageViewController,
+                didChangePageAt: selectedIndex,
+                withViewController: selectedViewController
+            )
+        }
+    }
+
+    private(set) var allViewControllers: [UIViewController] = []
 
     lazy private var pageViewController: UIPageViewController = {
         let pageViewController = UIPageViewController(
@@ -27,12 +47,8 @@ class WeatherPageViewController: UIViewController {
         return pageViewController
     }()
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
     override func loadView() {
-        let view = SkyView(skyType: .clearNight)
+        let view = SkyView(skyType: .default)
         self.view = view
     }
 
@@ -44,14 +60,25 @@ class WeatherPageViewController: UIViewController {
         view.addSubview(pageViewController.view)
         pageViewController.didMove(toParent: self)
 
-        if allViewControllers.indices.contains(selectedIndex) {
-            pageViewController.setViewControllers(
-                [allViewControllers[selectedIndex]],
-                direction: .forward,
-                animated: false
-            )
+        if !allViewControllers.isEmpty {
+            setAllViewControllers([UIViewController()])
         }
     }
+
+    public func setAllViewControllers(_ viewControllers: [UIViewController]) {
+        allViewControllers = viewControllers.isEmpty ? [UIViewController()] : viewControllers
+        selectedIndex = 0
+    }
+
+    public func addViewController(_ viewController: UIViewController) {
+        allViewControllers.append(viewController)
+    }
+
+    public func pageViewController(
+        _ pageViewController: UIPageViewController,
+        didChangePageAt index: Int,
+        withViewController: UIViewController
+    ) {}
 }
 
 // MARK: - UIPageViewControllerDataSource
@@ -79,6 +106,18 @@ extension WeatherPageViewController: UIPageViewControllerDataSource {
 
         return allViewControllers[index + 1]
     }
+
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        return allViewControllers.count > 1 ? allViewControllers.count : 0
+    }
+
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+        guard let viewController = pageViewController.viewControllers?.first else {
+            return 0
+        }
+
+        return allViewControllers.firstIndex(of: viewController) ?? 0
+    }
 }
 
 // MARK: - UIPageViewControllerDelegate
@@ -92,14 +131,22 @@ extension WeatherPageViewController: UIPageViewControllerDelegate {
         transitionCompleted completed: Bool
     ) {
         if completed {
-            guard let firstViewController = pageViewController.viewControllers?.first else {
-                return
-            }
-
-            let index = allViewControllers.firstIndex(of: firstViewController) ?? 0
-            selectedIndex = index
-
-            (view as? SkyView)?.skyType = allSkyTypes[selectedIndex]
+            self.pageViewController(
+                pageViewController,
+                didChangePageAt: selectedIndex,
+                withViewController: allViewControllers[selectedIndex]
+            )
         }
+    }
+}
+
+extension UIViewController {
+
+    var weatherPageViewController: WeatherPageViewController? {
+        if parent is WeatherPageViewController {
+            return parent as? WeatherPageViewController
+        }
+
+        return parent?.weatherPageViewController
     }
 }

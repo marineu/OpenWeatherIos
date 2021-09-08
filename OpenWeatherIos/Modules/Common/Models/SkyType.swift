@@ -9,6 +9,8 @@ import Foundation
 
 public enum SkyType: Int {
 
+    case `default`
+
     case clearNight
     case cloudyFoggyNight
     case rainyNight

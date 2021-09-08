@@ -15,6 +15,18 @@ public class AppDataManager: NSObject {
     private(set) var settingsStoreService: ValueStoreService<Settings>
     private(set) var cityWeatherStoreService: ValueStoreService<CityWeatherForecasts>
 
+    public var cities: Cities {
+        return cityStoreService.value ?? []
+    }
+
+    public var settings: Settings {
+        return settingsStoreService.value ?? Settings()
+    }
+
+    public var cityWeathers: CityWeatherForecasts {
+        return cityWeatherStoreService.value ?? []
+    }
+
     private override init() {
         cityStoreService = ValueStoreService(fileName: Constants.citiesDataFileName)
         settingsStoreService = ValueStoreService(fileName: Constants.settingsDataFileName)
@@ -37,6 +49,6 @@ public class AppDataManager: NSObject {
     public func synchronize() {
         cityStoreService.synchronize()
         settingsStoreService.synchronize()
-        cityStoreService.synchronize()
+        cityWeatherStoreService.synchronize()
     }
 }

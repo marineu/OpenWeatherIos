@@ -64,6 +64,8 @@ public class SkyView: UIView {
             return (UIColor.rainyDayStart, UIColor.rainyDayEnd)
         case .snowyIcyDay:
             return (UIColor.snowyIcyDayStart, UIColor.snowyIcyDayEnd)
+        case .default:
+            return (UIColor.dodgerBlue, UIColor.dodgerBlue)
         }
     }
 }

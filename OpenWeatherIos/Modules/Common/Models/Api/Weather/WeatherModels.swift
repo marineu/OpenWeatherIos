@@ -21,4 +21,11 @@ public struct WeatherDetails: Codable {
 
     /// Weather condition within the group (full list of weather conditions).
     var description: String
+
+    /// Weather icon id
+    var icon: String
+
+    var isNight: Bool {
+        return icon.contains("n")
+    }
 }
