@@ -67,6 +67,8 @@ public class CurrentWeatherViewModel: BaseViewModel {
     public func loadData() {
         let city = cityWeatherForecast.city
 
+        isLoading.value = true
+
         weatherApiManager.oneCallCurrentWeather(
             latitude: city.latitude,
             longitude: city.longitude
@@ -89,9 +91,10 @@ public class CurrentWeatherViewModel: BaseViewModel {
 
             let cityWeatherForecast = CityWeatherForecast(city: city, oneCallResponse: response)
             cityWeathers[index] = cityWeatherForecast
-            self.cityWeatherForecast = cityWeatherForecast
-
             self.appDataManager.setCityWeatherStoreServiceValue(cityWeathers)
+
+            self.cityWeatherForecast = cityWeatherForecast
+            self.isLoading.value = false
         }
     }
 }

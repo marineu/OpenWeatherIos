@@ -10,5 +10,5 @@ import Foundation
 public class BaseViewModel {
 
     private(set) var errorMessage: Bindable<String?> = Bindable(nil)
-    private(set) var activityIndicatorIsLoading: Bindable<Bool> = Bindable(false)
+    private(set) var isLoading: Bindable<Bool> = Bindable(false)
 }

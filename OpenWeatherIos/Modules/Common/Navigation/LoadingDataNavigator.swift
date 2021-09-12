@@ -28,7 +28,8 @@ class LoadingDataNavigator: Navigator {
 
             let weatherPageViewController = MainWeatherPageViewController()
             weatherPageViewController.viewModel = MainWeatherPageViewModel(
-                cityWeatherStoreService: AppDataManager.shared.cityWeatherStoreService)
+                appDataManager: AppDataManager.shared
+            )
             weatherPageViewController
                 .tabBarItem = UITabBarItem(
                     title: "Weather",

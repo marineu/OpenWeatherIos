@@ -127,6 +127,8 @@ class HourlyForecastItemCell: UICollectionViewCell {
             .constraint(equalToConstant: windDirectionImageWidth).isActive = true
         windDirectionImageView.heightAnchor
             .constraint(equalTo: windDirectionImageView.widthAnchor).isActive = true
+
+        windDirectionImageView.tintColor = .white
     }
 
     private func updateUI() {
@@ -154,7 +156,7 @@ class HourlyForecastItemCell: UICollectionViewCell {
             .humanReadableWindSpeed(value: hourlyForecast.windSpeed, by: settings.speedUnit)
 
         let angle = CGFloat(hourlyForecast.windDeg) * .pi / 180
-        windDirectionImageView.layer.transform = CATransform3DMakeRotation(angle, 0, 0, 1)
+        windDirectionImageView.transform = CGAffineTransform(rotationAngle: angle)
     }
 
     private func clearUI() {

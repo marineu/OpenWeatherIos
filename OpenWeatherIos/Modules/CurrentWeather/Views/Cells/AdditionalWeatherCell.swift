@@ -166,12 +166,12 @@ class AdditionalWeatherCell: UITableViewCell {
             imageView.isHidden = false
 
             let angle = CGFloat(currentWeather.windDeg) * .pi / 180
-            imageView.layer.transform = CATransform3DMakeRotation(angle, 0, 0, 1)
+            imageView.transform = CGAffineTransform(rotationAngle: angle)
         }
 
         // set humidity
         if let (label, imageView) = getValueLabelAndImageView(in: rightStackView, tag: 1) {
-            label.text = "\(currentWeather.humidity) %"
+            label.text = "\(currentWeather.humidity)%"
             imageView.isHidden = true
         }
 
@@ -207,6 +207,7 @@ class AdditionalWeatherCell: UITableViewCell {
         let imageName = "wind-direction-icon"
         let imageView = UIImageView(image: UIImage(named: imageName))
         imageView.tag = 101
+        imageView.tintColor = .white
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.widthAnchor.constraint(equalToConstant: windDirectionImageWidth).isActive = true

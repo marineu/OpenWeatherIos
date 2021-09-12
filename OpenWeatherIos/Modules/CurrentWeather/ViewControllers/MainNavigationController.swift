@@ -9,8 +9,8 @@ import UIKit
 
 class MainNavigationController: UINavigationController {
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+    override var childForStatusBarStyle: UIViewController? {
+        return viewControllers.last
     }
 
     override func viewDidLoad() {

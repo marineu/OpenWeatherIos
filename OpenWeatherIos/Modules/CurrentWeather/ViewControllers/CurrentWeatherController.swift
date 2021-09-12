@@ -7,9 +7,11 @@
 
 import UIKit
 
-class CurrentWeatherController: UIViewController, ViewModelSupporting {
+class CurrentWeatherController: UIViewController, ViewModelNavigatorSupporting {
 
     var viewModel: CurrentWeatherViewModel?
+
+    var navigator: CurrentWeatherNavigator?
 
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -48,6 +50,7 @@ class CurrentWeatherController: UIViewController, ViewModelSupporting {
         setupTableView()
 
         bindReloadTableView()
+        bindIsLoading()
 
         DispatchQueue.main.async {
             self.viewModel?.loadData()
@@ -82,6 +85,16 @@ class CurrentWeatherController: UIViewController, ViewModelSupporting {
             (self.weatherPageViewController as? MainWeatherPageViewController)?
                 .updateBackgroundView(with: self)
             self.tableView.reloadData()
+        }
+    }
+
+    private func bindIsLoading() {
+        viewModel?.isLoading.bind { [weak self] isLoading in
+            guard let self = self else {
+                return
+            }
+
+            self.view.isUserInteractionEnabled = !isLoading
         }
     }
 
@@ -131,6 +144,9 @@ extension CurrentWeatherController: UITableViewDataSource {
             cell?.settings = viewModel.appDataManager.settings
             cell?.dailyForecastsCount = daily.count
             cell?.timeZone = viewModel.timeZone
+            cell?.didTapButtonHandler = { [unowned self] in
+                self.navigator?.navigate(to: .dailyForecast((daily, viewModel.timeZone)))
+            }
 
             return cell ?? UITableViewCell()
         case .hourly:

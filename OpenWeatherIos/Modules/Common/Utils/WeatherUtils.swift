@@ -15,6 +15,10 @@ public class WeatherUtils {
         self.isNight = isNight
     }
 
+    init() {
+        isNight = false
+    }
+
     public func weatherIcon(by id: WeatherId) -> String {
         let imageNames: [Int: String] = [
             511: "rain-snow",
@@ -126,6 +130,28 @@ public class WeatherUtils {
         }
     }
 
+    public func moonPhaseDescription(by moonPhase: Double) -> String {
+        switch moonPhase {
+        case 0..<0.25:
+            return moonPhase == 0 ? "New moon" : "Waxing crescent"
+        case 0.25..<0.5:
+            return moonPhase == 0.25 ? "First quarter moon" : "Waxing gibous"
+        case 0.5..<0.75:
+            return moonPhase == 0.5 ? "Full moon" : "Waning gibous"
+        case 0.75..<1:
+            return moonPhase == 0.75 ? "Last quarter moon" : "Waning crescent"
+        case 1:
+            return "New moon"
+        default:
+            return ""
+        }
+    }
+}
+
+// MARK: - measurement formatter
+
+extension WeatherUtils {
+
     public func humanReadableTemperature(
         value: Temperature?,
         by temperatureUnit: TemperatureUnit,
@@ -212,7 +238,7 @@ public class WeatherUtils {
     }
 
     public func humanReadablePressure(
-        value: Double,
+        value: Pressure,
         by pressureUnit: PressureUnit
     ) -> String {
         let numberFormatter = NumberFormatter()

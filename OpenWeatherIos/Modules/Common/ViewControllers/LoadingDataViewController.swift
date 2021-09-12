@@ -66,7 +66,7 @@ class LoadingDataViewController: UIViewController, ViewModelNavigatorSupporting 
         super.viewDidLoad()
         setupStackView()
 
-        bindActivityIndicatorIsLoading()
+        bindIsLoading()
         bindRetryButtonIsHidden()
         didLoadDataAction()
 
@@ -86,8 +86,8 @@ class LoadingDataViewController: UIViewController, ViewModelNavigatorSupporting 
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 
-    private func bindActivityIndicatorIsLoading() {
-        viewModel?.activityIndicatorIsLoading.bind { [weak self] isLoading in
+    private func bindIsLoading() {
+        viewModel?.isLoading.bind { [weak self] isLoading in
             guard let self = self else { return }
 
             isLoading ? self.activityIndicatorView.startAnimating() : self.activityIndicatorView.stopAnimating()

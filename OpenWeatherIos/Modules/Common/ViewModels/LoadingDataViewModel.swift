@@ -13,12 +13,12 @@ public class LoadingDataViewModel: BaseViewModel {
     public var didLoadData: (() -> Void)?
 
     public func loadData() {
-        activityIndicatorIsLoading.value = true
+        isLoading.value = true
 
         let cities = AppDataManager.shared.cityStoreService.value ?? []
 
         guard cities.isEmpty else {
-            activityIndicatorIsLoading.value = false
+            isLoading.value = false
             self.didLoadData?()
             return
         }
@@ -28,7 +28,7 @@ public class LoadingDataViewModel: BaseViewModel {
 
             defer {
                 DispatchQueue.main.async {
-                    self.activityIndicatorIsLoading.value = false
+                    self.isLoading.value = false
                     self.errorMessage.value = error != nil ? error?.localizedDescription : nil
                     self.retryButtonIsHidden.value = error == nil
 

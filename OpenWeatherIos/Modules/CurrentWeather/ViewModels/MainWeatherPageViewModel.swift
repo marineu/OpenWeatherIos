@@ -9,14 +9,14 @@ import Foundation
 
 public class MainWeatherPageViewModel: BaseViewModel {
 
-    let cityWeatherStoreService: ValueStoreService<CityWeatherForecasts>
+    let appDataManager: AppDataManager
 
     var cityWeatherForecasts: CityWeatherForecasts {
-        return cityWeatherStoreService.value ?? []
+        return appDataManager.cityWeatherStoreService.value ?? []
     }
 
-    init(cityWeatherStoreService: ValueStoreService<CityWeatherForecasts>) {
-        self.cityWeatherStoreService = cityWeatherStoreService
+    init(appDataManager: AppDataManager) {
+        self.appDataManager = appDataManager
         super.init()
     }
 }

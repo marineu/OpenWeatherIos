@@ -12,9 +12,17 @@ class MainWeatherPageViewController: WeatherPageViewController,
 
     var viewModel: MainWeatherPageViewModel?
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         let navigationBar = navigationController?.navigationBar
 
@@ -60,6 +68,9 @@ class MainWeatherPageViewController: WeatherPageViewController,
                 cityWeatherForecast: item)
             let currentWeatherController = CurrentWeatherController()
             currentWeatherController.viewModel = viewModel
+            currentWeatherController.navigator = CurrentWeatherNavigator(
+                navigationController: navigationController
+            )
 
             return currentWeatherController
         }
