@@ -37,11 +37,25 @@ class LoadingDataNavigator: Navigator {
                     selectedImage: UIImage(named: "weather-tab-selected")
                 )
 
+            let cityListViewController = LocationListViewController()
+            cityListViewController.viewModel = LocationListViewModel(
+                appDataManager: AppDataManager.shared,
+                weatherApiManager: WeatherApiManager.shared
+            )
+            cityListViewController
+                .tabBarItem = UITabBarItem(
+                    title: "Locations",
+                    image: UIImage(named: "locations-tab-normal"),
+                    selectedImage: UIImage(named: "locations-tab-selected")
+                )
+
             UITabBar.appearance().unselectedItemTintColor = .doveGray
             UITabBar.appearance().tintColor = .dodgerBlue
+            UITabBar.appearance().isTranslucent = false
 
             tabBarController.viewControllers = [
-                MainNavigationController(rootViewController: weatherPageViewController)
+                MainNavigationController(rootViewController: weatherPageViewController),
+                MainNavigationController(rootViewController: cityListViewController)
             ]
 
             return tabBarController

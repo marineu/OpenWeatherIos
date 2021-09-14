@@ -11,6 +11,8 @@ public class SearchCityManager: NSObject {
 
     private var cities: Cities = []
 
+    var maxResultCount: Int = 100
+
     private var operationQueue: OperationQueue = {
         let operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
@@ -27,11 +29,18 @@ public class SearchCityManager: NSObject {
     public func searchCities(byCityName cityName: String) {
         let stringUtils = StringUtils()
 
+        operationQueue.cancelAllOperations()
+
         let operation = BlockOperation { [weak self] in
             guard let self = self else { return }
-            let filteredCities = self.cities.filter { stringUtils.searchText(cityName, in: $0.name) }
+            let filteredCities = self.cities
+                .filter(maxResultCount: self.maxResultCount) {
+                    stringUtils.searchText(cityName, in: $0.name)
+                }
 
-            self.searchResultBlock?(filteredCities)
+            DispatchQueue.main.async {
+                self.searchResultBlock?(filteredCities)
+            }
         }
         operationQueue.addOperation(operation)
     }

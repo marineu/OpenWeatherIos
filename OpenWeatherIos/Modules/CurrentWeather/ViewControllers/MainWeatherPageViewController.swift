@@ -19,6 +19,20 @@ class MainWeatherPageViewController: WeatherPageViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(cityListDidChange),
+            name: .didChangeLocations,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didSelectLocation(_:)),
+            name: .didSelectLocation,
+            object: nil
+        )
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +68,17 @@ class MainWeatherPageViewController: WeatherPageViewController,
         }
 
         changeBackgroundType()
+    }
+
+    public func reloadData() {
+        let selectedIndex = self.selectedIndex
+        initialize()
+
+        if allViewControllers.indices.contains(selectedIndex) {
+            self.selectedIndex = selectedIndex
+        } else {
+            self.selectedIndex = 0
+        }
     }
 
     private func initialize() {
@@ -98,5 +123,19 @@ class MainWeatherPageViewController: WeatherPageViewController,
         (view as? SkyView)?.skyType = skyType
 
         navigationItem.title = selectedCityWeatherForecast.city.name
+    }
+
+    // MARK: - actions
+
+    @objc private func cityListDidChange() {
+        reloadData()
+    }
+
+    @objc private func didSelectLocation(_ notification: Notification) {
+        guard let index = notification.object as? Int else {
+            return
+        }
+
+        selectedIndex = index
     }
 }

@@ -52,7 +52,7 @@ public protocol WeatherConvertible {
     var windSpeed: WindSpeed { get set }
 
     /// (where available) Wind gust.
-    var windGust: WindSpeed { get set }
+    var windGust: WindSpeed? { get set }
 
     /// Wind direction, degrees (meteorological)
     var windDeg: Double { get set }

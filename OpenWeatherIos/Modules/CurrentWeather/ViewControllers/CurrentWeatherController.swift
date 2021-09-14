@@ -57,7 +57,7 @@ class CurrentWeatherController: UIViewController, ViewModelNavigatorSupporting {
         }
     }
 
-    // setup UI
+    // MARK: - setup UI
 
     private func setupTableView() {
         view.addSubview(tableView)

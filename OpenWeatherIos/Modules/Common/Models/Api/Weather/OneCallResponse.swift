@@ -50,4 +50,11 @@ public struct OneCallResponse: Codable {
         case daily
         case alerts
     }
+
+    init() {
+        latitude       = .infinity
+        longitude      = .infinity
+        timezone       = ""
+        timezoneOffset = 0
+    }
 }

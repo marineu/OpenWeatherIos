@@ -29,6 +29,8 @@ class DailyForecastValueCell: UITableViewCell {
 
     private let contentViewInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
 
+    // MARK: - subviews declaration
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
@@ -53,8 +55,6 @@ class DailyForecastValueCell: UITableViewCell {
     }()
 
     private let windDirectionImageView = UIImageView(image: UIImage(named: "wind-direction-icon"))
-
-    // MARK: - subviews declaration
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

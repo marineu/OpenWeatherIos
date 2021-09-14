@@ -31,7 +31,7 @@ public struct HourlyForecast: Codable, WeatherConvertible, WeatherTemperature {
 
     public var windSpeed: WindSpeed
 
-    public var windGust: WindSpeed
+    public var windGust: WindSpeed?
 
     public var windDeg: Double
 
@@ -80,7 +80,7 @@ public struct HourlyForecast: Codable, WeatherConvertible, WeatherTemperature {
         pressure  = try values.decode(Pressure.self, forKey: .pressure)
         dewPoint  = try values.decode(Temperature.self, forKey: .dewPoint)
         windSpeed = try values.decode(WindSpeed.self, forKey: .windSpeed)
-        windGust  = try values.decode(WindSpeed.self, forKey: .windGust)
+        windGust  = try values.decodeIfPresent(WindSpeed.self, forKey: .windGust)
 
         cdt        = try values.decode(TimeInterval.self, forKey: .cdt)
         humidity   = try values.decode(Int8.self, forKey: .humidity)
@@ -119,7 +119,7 @@ public struct HourlyForecast: Codable, WeatherConvertible, WeatherTemperature {
         try container.encode(uvi, forKey: .uvi)
         try container.encode(visibility, forKey: .visibility)
         try container.encode(windSpeed, forKey: .windSpeed)
-        try container.encode(windGust, forKey: .windGust)
+        try container.encodeIfPresent(windGust, forKey: .windGust)
         try container.encode(windDeg, forKey: .windDeg)
         try container.encode(weather, forKey: .weather)
 
