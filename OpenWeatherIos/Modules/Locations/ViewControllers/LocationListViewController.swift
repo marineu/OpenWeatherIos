@@ -80,6 +80,13 @@ class LocationListViewController: UIViewController, ViewModelSupporting {
             action: #selector(didTapEditButton)
         )
 
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didChangeUnitHandler),
+            name: .didChangeUnit,
+            object: nil
+        )
+
         setupTableView()
 
         bindReloadTableView()
@@ -151,6 +158,10 @@ class LocationListViewController: UIViewController, ViewModelSupporting {
             action: #selector(didTapEditButton)
         )
     }
+
+    @objc private func didChangeUnitHandler() {
+        tableView.reloadData()
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -168,6 +179,7 @@ extension LocationListViewController: UITableViewDataSource {
         ) as? LocationWeatherCell
 
         cell?.cityWeatherForecast = viewModel?.cityWeatherForecasts[indexPath.row]
+        cell?.settings = viewModel?.appDataManager.settings ?? Settings()
 
         return cell ?? UITableViewCell()
     }

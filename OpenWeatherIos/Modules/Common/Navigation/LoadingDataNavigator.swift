@@ -49,13 +49,30 @@ class LoadingDataNavigator: Navigator {
                     selectedImage: UIImage(named: "locations-tab-selected")
                 )
 
+
+            let settingsViewController = SettingsViewController()
+            let settingsNavigationController = MainNavigationController(
+                rootViewController: settingsViewController
+            )
+            settingsViewController.viewModel = SettingsViewModel(
+                appDataManager: AppDataManager.shared
+            )
+            settingsViewController.navigator = SettingsNavigator(navigationController: settingsNavigationController)
+            settingsViewController
+                .tabBarItem = UITabBarItem(
+                    title: "Settings",
+                    image: UIImage(named: "settings-tab-normal"),
+                    selectedImage: UIImage(named: "settings-tab-selected")
+                )
+
             UITabBar.appearance().unselectedItemTintColor = .doveGray
             UITabBar.appearance().tintColor = .dodgerBlue
             UITabBar.appearance().isTranslucent = false
 
             tabBarController.viewControllers = [
                 MainNavigationController(rootViewController: weatherPageViewController),
-                MainNavigationController(rootViewController: cityListViewController)
+                MainNavigationController(rootViewController: cityListViewController),
+                settingsNavigationController
             ]
 
             return tabBarController

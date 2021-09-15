@@ -13,11 +13,14 @@ public protocol Navigator {
     associatedtype OutputAction
 
     func navigate(to destination: Destination)
-    func navigate(to destination: Destination, action: OutputAction?)
+    func navigate(to destination: Destination, action: OutputAction)
 }
 
 extension Navigator {
 
-    func navigate(to destination: Destination, action: OutputAction?) {
+    func navigate(to destination: Destination) {
+    }
+
+    func navigate(to destination: Destination, action: OutputAction) {
     }
 }

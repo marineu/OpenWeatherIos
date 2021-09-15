@@ -50,6 +50,13 @@ class DailyForecastViewController: UIViewController, ViewModelSupporting {
         setupTableView()
 
         navigationItem.title = "\(viewModel?.dailyForecastsCount ?? 0)-day forecast"
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didChangeUnitHandler),
+            name: .didChangeUnit,
+            object: nil
+        )
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -73,6 +80,12 @@ class DailyForecastViewController: UIViewController, ViewModelSupporting {
 
         view.bottomAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
         view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor).isActive = true
+    }
+
+    // MARK: - actions
+
+    @objc private func didChangeUnitHandler() {
+        tableView.reloadData()
     }
 }
 

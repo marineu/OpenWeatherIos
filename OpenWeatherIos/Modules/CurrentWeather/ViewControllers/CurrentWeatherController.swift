@@ -55,6 +55,13 @@ class CurrentWeatherController: UIViewController, ViewModelNavigatorSupporting {
         DispatchQueue.main.async {
             self.viewModel?.loadData()
         }
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didChangeUnitHandler),
+            name: .didChangeUnit,
+            object: nil
+        )
     }
 
     // MARK: - setup UI
@@ -102,6 +109,10 @@ class CurrentWeatherController: UIViewController, ViewModelNavigatorSupporting {
 
     @objc private func refreshControlHandler() {
         viewModel?.loadData()
+    }
+
+    @objc private func didChangeUnitHandler() {
+        tableView.reloadData()
     }
 }
 
@@ -155,6 +166,7 @@ extension CurrentWeatherController: UITableViewDataSource {
                 for: indexPath) as? HourlyForecastCell
 
             cell?.hourlyForecasts = viewModel.hourlyForecasts
+            cell?.settings = viewModel.appDataManager.settings
             cell?.timeZone = viewModel.timeZone
 
             return cell ?? UITableViewCell()
