@@ -10,6 +10,7 @@ import UIKit
 class SettingsViewController: UIViewController, ViewModelNavigatorSupporting {
 
     private let unitTypeCellReuseIdentifier = String(describing: UnitTypeCell.self)
+    private let tableViewCellReuseIdentifier = String(describing: UITableViewCell.self)
 
     var viewModel: SettingsViewModel?
 
@@ -22,6 +23,7 @@ class SettingsViewController: UIViewController, ViewModelNavigatorSupporting {
         tableView.delegate   = self
 
         tableView.register(UnitTypeCell.self, forCellReuseIdentifier: unitTypeCellReuseIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: tableViewCellReuseIdentifier)
 
         return tableView
     }()
@@ -74,22 +76,43 @@ class SettingsViewController: UIViewController, ViewModelNavigatorSupporting {
 extension SettingsViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel?.headerModelList.count ?? 0
+        guard let viewModel = viewModel else {
+            return 0
+        }
+
+        return viewModel.headerModelList.count + 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.headerModelList[section].rows.count ?? 0
+        switch section {
+        case 0:
+            return viewModel?.headerModelList[section].rows.count ?? 0
+        default:
+            return 1
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: unitTypeCellReuseIdentifier,
-            for: indexPath
-        ) as? UnitTypeCell
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: unitTypeCellReuseIdentifier,
+                for: indexPath
+            ) as? UnitTypeCell
 
-        cell?.rowModel = viewModel?.headerModelList[indexPath.section].rows[indexPath.row]
+            cell?.rowModel = viewModel?.headerModelList[indexPath.section].rows[indexPath.row]
 
-        return cell ?? UITableViewCell()
+            return cell ?? UITableViewCell()
+        default:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: tableViewCellReuseIdentifier,
+                for: indexPath
+            )
+
+            cell.textLabel?.text = "Data provided by OpenWeather"
+
+            return cell
+        }
     }
 }
 
@@ -100,66 +123,78 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        guard let viewModel = viewModel else {
-            return
+        switch indexPath.section {
+        case 0:
+            guard let viewModel = viewModel else {
+                return
+            }
+
+            let action: (UnitPickerViewModel.UniversalUnit, UnitType) -> Void = { unit, unitType in
+                viewModel.updateUnit(unitRaw: unit.raw, unitType: unitType)
+                NotificationCenter.default.post(name: .didChangeUnit, object: nil)
+            }
+
+            let rowModel = viewModel.headerModelList[indexPath.section].rows[indexPath.row]
+            let unitType = rowModel.unitType
+            var units: [UnitPickerViewModel.UniversalUnit] = []
+            let settings = viewModel.appDataManager.settings
+            var selectedUnit = UnitPickerViewModel.UniversalUnit()
+
+            switch unitType {
+            case .temperature:
+                units = TemperatureUnit.allCases.map({
+                    UnitPickerViewModel.UniversalUnit(raw: $0.rawValue, description: $0.description)
+                })
+                selectedUnit = UnitPickerViewModel.UniversalUnit(
+                    raw: settings.temperatureUnit.rawValue,
+                    description: settings.temperatureUnit.description
+                )
+            case .speed:
+                units = SpeedUnit.allCases.map({
+                    UnitPickerViewModel.UniversalUnit(raw: $0.rawValue, description: $0.description)
+                })
+                selectedUnit = UnitPickerViewModel.UniversalUnit(
+                    raw: settings.speedUnit.rawValue,
+                    description: settings.speedUnit.description
+                )
+            case .pressure:
+                units = PressureUnit.allCases.map({
+                    UnitPickerViewModel.UniversalUnit(raw: $0.rawValue, description: $0.description)
+                })
+                selectedUnit = UnitPickerViewModel.UniversalUnit(
+                    raw: settings.pressureUnit.rawValue,
+                    description: settings.pressureUnit.description
+                )
+            case .length:
+                units = LengthUnit.allCases.map({
+                    UnitPickerViewModel.UniversalUnit(raw: $0.rawValue, description: $0.description)
+                })
+                selectedUnit = UnitPickerViewModel.UniversalUnit(
+                    raw: settings.lengthUnit.rawValue,
+                    description: settings.lengthUnit.description
+                )
+            }
+
+            let inputData = UnitPickerViewModel.InputData(
+                units: units,
+                selectedUnit: selectedUnit,
+                unitType: unitType
+            )
+            navigator?.navigate(to: .unitPicker(inputData), action: .unitPickerDidSelectItem(action))
+        default:
+            if let url = URL(string: "https://openweathermap.org/api") {
+                UIApplication.shared.open(url)
+            }
         }
-
-        let action: (UnitPickerViewModel.UniversalUnit, UnitType) -> Void = { unit, unitType in
-            viewModel.updateUnit(unitRaw: unit.raw, unitType: unitType)
-            NotificationCenter.default.post(name: .didChangeUnit, object: nil)
-        }
-
-        let rowModel = viewModel.headerModelList[indexPath.section].rows[indexPath.row]
-        let unitType = rowModel.unitType
-        var units: [UnitPickerViewModel.UniversalUnit] = []
-        let settings = viewModel.appDataManager.settings
-        var selectedUnit = UnitPickerViewModel.UniversalUnit()
-
-        switch unitType {
-        case .temperature:
-            units = TemperatureUnit.allCases.map({
-                UnitPickerViewModel.UniversalUnit(raw: $0.rawValue, description: $0.description)
-            })
-            selectedUnit = UnitPickerViewModel.UniversalUnit(
-                raw: settings.temperatureUnit.rawValue,
-                description: settings.temperatureUnit.description
-            )
-        case .speed:
-            units = SpeedUnit.allCases.map({
-                UnitPickerViewModel.UniversalUnit(raw: $0.rawValue, description: $0.description)
-            })
-            selectedUnit = UnitPickerViewModel.UniversalUnit(
-                raw: settings.speedUnit.rawValue,
-                description: settings.speedUnit.description
-            )
-        case .pressure:
-            units = PressureUnit.allCases.map({
-                UnitPickerViewModel.UniversalUnit(raw: $0.rawValue, description: $0.description)
-            })
-            selectedUnit = UnitPickerViewModel.UniversalUnit(
-                raw: settings.pressureUnit.rawValue,
-                description: settings.pressureUnit.description
-            )
-        case .length:
-            units = LengthUnit.allCases.map({
-                UnitPickerViewModel.UniversalUnit(raw: $0.rawValue, description: $0.description)
-            })
-            selectedUnit = UnitPickerViewModel.UniversalUnit(
-                raw: settings.lengthUnit.rawValue,
-                description: settings.lengthUnit.description
-            )
-        }
-
-        let inputData = UnitPickerViewModel.InputData(
-            units: units,
-            selectedUnit: selectedUnit,
-            unitType: unitType
-        )
-        navigator?.navigate(to: .unitPicker(inputData), action: .unitPickerDidSelectItem(action))
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel?.headerModelList[section].title
+        switch section {
+        case 0:
+            return viewModel?.headerModelList[section].title
+        default:
+            return "Data"
+        }
     }
 }
 
