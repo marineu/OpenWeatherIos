@@ -9,6 +9,8 @@ import Foundation
 
 public class LocationListViewModel: BaseViewModel {
 
+    private let timeToRefresh: TimeInterval = 1800
+
     let appDataManager: AppDataManager
     let weatherApiManager: WeatherApiManager
 
@@ -25,6 +27,16 @@ public class LocationListViewModel: BaseViewModel {
         super.init()
     }
 
+    public func updateData() {
+        for cityWeatherForecast in cityWeatherForecasts {
+            if needToUpdate(cityWeatherForecast: cityWeatherForecast) == false {
+                continue
+            }
+
+            loadData(for: cityWeatherForecast.city, isChangedList: false)
+        }
+    }
+
     public func loadData(for city: City, isChangedList: Bool) {
         isLoading.value = true
 
@@ -34,10 +46,15 @@ public class LocationListViewModel: BaseViewModel {
         ) { [weak self] response, error in
             guard let self = self else { return }
 
+            defer {
+                self.isLoading.value = false
+            }
+
             guard
                 let response = response,
                 error == nil
             else {
+                self.errorMessage.value = error?.localizedDescription
                 return
             }
 
@@ -52,7 +69,6 @@ public class LocationListViewModel: BaseViewModel {
 
             self.appDataManager.setCityWeatherStoreServiceValue(cityWeathers)
 
-            self.isLoading.value = false
             self.reloadTableView.value = ()
             self.cityListDidChange.value = isChangedList
         }
@@ -80,5 +96,16 @@ public class LocationListViewModel: BaseViewModel {
         self.appDataManager.setCityWeatherStoreServiceValue(cityWeathers)
 
         cityListDidChange.value = true
+    }
+
+    public func needToUpdate(cityWeatherForecast: CityWeatherForecast) -> Bool {
+        guard let current = cityWeatherForecast.oneCallResponse.current else {
+            return true
+        }
+
+        let now = Date().timeIntervalSince1970
+        let cdt = current.cdt
+
+        return now - cdt > timeToRefresh
     }
 }

@@ -51,6 +51,7 @@ class CurrentWeatherController: UIViewController, ViewModelNavigatorSupporting {
 
         bindReloadTableView()
         bindIsLoading()
+        bindErrorMessage()
 
         DispatchQueue.main.async {
             self.viewModel?.loadData()
@@ -101,7 +102,30 @@ class CurrentWeatherController: UIViewController, ViewModelNavigatorSupporting {
                 return
             }
 
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                guard let self = self else {
+                    return
+                }
+
+                if self.refreshControl.isRefreshing {
+                    self.refreshControl.endRefreshing()
+                }
+            }
+
             self.view.isUserInteractionEnabled = !isLoading
+        }
+    }
+
+    private func bindErrorMessage() {
+        viewModel?.errorMessage.bind { [weak self] errorMessage in
+            guard
+                let self = self,
+                let errorMessage = errorMessage
+            else {
+                return
+            }
+
+            self.showAlert(in: self, title: "Error", message: errorMessage, dismissTitle: "OK")
         }
     }
 
@@ -194,4 +218,7 @@ extension CurrentWeatherController: UITableViewDataSource {
             return cell ?? UITableViewCell()
         }
     }
+}
+
+extension CurrentWeatherController: ErrorAlertSupporting {
 }

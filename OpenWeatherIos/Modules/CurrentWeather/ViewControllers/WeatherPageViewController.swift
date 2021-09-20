@@ -9,6 +9,8 @@ import UIKit
 
 class WeatherPageViewController: UIViewController {
 
+    var emptyViewController: UIViewController?
+
     var selectedIndex: Int {
         get {
             guard let firstViewController = pageViewController.viewControllers?.first else {
@@ -61,12 +63,13 @@ class WeatherPageViewController: UIViewController {
         pageViewController.didMove(toParent: self)
 
         if !allViewControllers.isEmpty {
-            setAllViewControllers([UIViewController()])
+            setAllViewControllers([emptyViewController ?? UIViewController()])
         }
     }
 
     public func setAllViewControllers(_ viewControllers: [UIViewController]) {
-        allViewControllers = viewControllers.isEmpty ? [UIViewController()] : viewControllers
+        allViewControllers = viewControllers.isEmpty
+            ? [emptyViewController ?? UIViewController()] : viewControllers
         selectedIndex = 0
     }
 

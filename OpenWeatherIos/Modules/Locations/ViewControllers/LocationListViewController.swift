@@ -80,6 +80,8 @@ class LocationListViewController: UIViewController, ViewModelSupporting {
             action: #selector(didTapEditButton)
         )
 
+        definesPresentationContext = true
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(didChangeUnitHandler),
@@ -91,12 +93,14 @@ class LocationListViewController: UIViewController, ViewModelSupporting {
 
         bindReloadTableView()
         bindIsLoading()
+        bindErrorMessage()
         bindCityListDidChange()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
+        viewModel?.updateData()
     }
 
     // MARK: - setup UI
@@ -124,6 +128,8 @@ class LocationListViewController: UIViewController, ViewModelSupporting {
             }
 
             self.tableView.reloadData()
+            let count = self.viewModel?.cityWeatherForecasts.count ?? 0
+            self.navigationItem.rightBarButtonItem?.isEnabled = count > 1
         }
     }
 
@@ -134,6 +140,19 @@ class LocationListViewController: UIViewController, ViewModelSupporting {
             }
 
             self.view.isUserInteractionEnabled = !isLoading
+        }
+    }
+
+    private func bindErrorMessage() {
+        viewModel?.errorMessage.bind { [weak self] errorMessage in
+            guard
+                let self = self,
+                let errorMessage = errorMessage
+            else {
+                return
+            }
+
+            self.showAlert(in: self, title: "Error", message: errorMessage, dismissTitle: "OK")
         }
     }
 
@@ -205,6 +224,17 @@ extension LocationListViewController: UITableViewDataSource {
 extension LocationListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let viewModel = viewModel else {
+            return
+        }
+
+        let cityWeatherForecast = viewModel.cityWeatherForecasts[indexPath.row]
+
+        if viewModel.needToUpdate(cityWeatherForecast: cityWeatherForecast) {
+            viewModel.loadData(for: cityWeatherForecast.city, isChangedList: false)
+            return
+        }
+
         NotificationCenter.default.post(name: .didSelectLocation, object: indexPath.row)
         tabBarController?.selectedIndex = 0
     }
@@ -227,6 +257,9 @@ extension LocationListViewController: UITableViewDelegate {
     ) {
         viewModel?.moveCity(at: sourceIndexPath.row, to: destinationIndexPath.row)
     }
+}
+
+extension LocationListViewController: ErrorAlertSupporting {
 }
 
 extension Notification.Name {

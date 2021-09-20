@@ -18,6 +18,16 @@ class MainWeatherPageViewController: WeatherPageViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let viewModel = viewModel {
+            let noItemsViewController = NoItemsViewController()
+            noItemsViewController.viewModel = NoItemsViewModel(
+                appDataManager: viewModel.appDataManager,
+                weatherApiManager: WeatherApiManager.shared
+            )
+
+            emptyViewController = noItemsViewController
+        }
+
         initialize()
 
         NotificationCenter.default.addObserver(

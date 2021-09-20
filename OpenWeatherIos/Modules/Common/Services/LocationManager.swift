@@ -13,10 +13,14 @@ class LocationManager: NSObject {
     let locationManager = CLLocationManager()
 
     private var requestLocationCompletion: ((CLPlacemark?) -> Void)?
+    var didChangeAuthorizationHandler: ((Bool) -> Void)?
 
     override init() {
         super.init()
         locationManager.delegate = self
+    }
+
+    public func requestAuthorization() {
         locationManager.requestWhenInUseAuthorization()
     }
 
@@ -58,5 +62,17 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         requestLocationCompletion?(nil)
         requestLocationCompletion = nil
+    }
+
+    func locationManager(
+        _ manager: CLLocationManager,
+        didChangeAuthorization status: CLAuthorizationStatus
+    ) {
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            didChangeAuthorizationHandler?(true)
+        default:
+            didChangeAuthorizationHandler?(false)
+        }
     }
 }

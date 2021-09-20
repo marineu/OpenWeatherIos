@@ -75,10 +75,15 @@ public class CurrentWeatherViewModel: BaseViewModel {
         ) { [weak self] response, error in
             guard let self = self else { return }
 
+            defer {
+                self.isLoading.value = false
+            }
+
             guard
                 let response = response,
                 error == nil
             else {
+                self.errorMessage.value = error?.localizedDescription
                 return
             }
 
@@ -94,7 +99,6 @@ public class CurrentWeatherViewModel: BaseViewModel {
             self.appDataManager.setCityWeatherStoreServiceValue(cityWeathers)
 
             self.cityWeatherForecast = cityWeatherForecast
-            self.isLoading.value = false
         }
     }
 }

@@ -18,6 +18,11 @@ class LoadingDataViewController: UIViewController, ViewModelNavigatorSupporting 
         button.setTitle("Retry", for: .normal)
         button.addTarget(self, action: #selector(didTapRetryButton(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .white
+        button.setTitleColor(.dodgerBlue, for: .normal)
+        button.setTitleColor(.dodgerBlue.withAlphaComponent(0.2), for: .highlighted)
+        button.layer.cornerRadius = 5
+        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 
         return button
     }()

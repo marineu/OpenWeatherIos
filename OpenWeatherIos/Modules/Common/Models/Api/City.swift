@@ -33,6 +33,14 @@ public struct City: Codable {
         case longitude = "lon"
     }
 
+    public init(identifier: Int, name: String, country: String, latitude: Double, longitude: Double) {
+        self.identifier = identifier
+        self.name = name
+        self.country = country
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
